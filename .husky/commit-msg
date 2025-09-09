@@ -1,0 +1,15 @@
+# Deteksi sistem operasi
+OS="$(uname -s | tr '[:upper:]' '[:lower:]')"
+
+if echo "$OS" | grep -q "mingw"; then
+  # Windows (Git Bash)
+  echo "🔍 Detected Windows (Git Bash). Running PowerShell script..."
+  powershell.exe -ExecutionPolicy Bypass -NoProfile -File .husky/commit-msg.ps1 "$1"
+else
+  # Linux/Mac
+  echo "🔍 Detected Linux/Mac. Running shell script..."
+  .husky/commit-msg.sh "$1" || {
+    echo "❌ Commit message invalid. Please fix."
+    exit 1
+  }
+fi
