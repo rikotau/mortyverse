@@ -1,15 +1,20 @@
 "use client";
 
-import { Input } from "@/components/ui";
+import { Button, Input } from "@/components/ui";
 
 interface SearchBarProps {
   value: string;
   onChange: (value: string) => void;
+  onToggleFilter: () => void;
 }
 
-export const SearchBar = ({ value, onChange }: SearchBarProps) => {
+export const SearchBar = ({
+  value,
+  onChange,
+  onToggleFilter,
+}: SearchBarProps) => {
   return (
-    <div className="flex justify-center mb-6">
+    <div className="flex flex-col gap-2 justify-center mb-6">
       <Input
         type="text"
         placeholder="Find Characters.."
@@ -17,8 +22,17 @@ export const SearchBar = ({ value, onChange }: SearchBarProps) => {
         onChange={(e) => {
           onChange(e.target.value);
         }}
-        className="w-full max-w-md"
       />
+
+      <div>
+        <Button
+          variant="outline"
+          className="block md:hidden"
+          onClick={onToggleFilter}
+        >
+          Filter
+        </Button>
+      </div>
     </div>
   );
 };
